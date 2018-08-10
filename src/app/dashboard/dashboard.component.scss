@@ -1,0 +1,59 @@
+#box{
+    float: left;
+}
+nav ul li:last-child {
+    float: right;
+}
+nav ul li{
+    float: left;
+}
+#logout{
+    float: right;
+}
+#myname{
+    float: right;
+    text-emphasis-color: white;
+}
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+}
+button {
+    background-color:green; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+
+}
+.view {
+    background: url("http://in.bookmyfunction.com/blog/wp-content/uploads/2015/11/Aamby-Valley.jpg")no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.navbar {
+    background-color: transparent;
+}
+
+.top-nav-collapse {
+    background-color: #4285F4;
+}
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #4285F4;
+    }
+}
+#welcome{
+    color:black;
+}

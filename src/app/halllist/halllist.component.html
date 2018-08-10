@@ -1,0 +1,288 @@
+<!-- Section: Blog v.1 -->
+<section  class="my-3">
+  <!-- Section heading -->
+  <h2 class="h1-responsive font-weight-bold text-center my-3">HALL LIST</h2>
+  <!-- Section description -->
+  <p class="text-center w-responsive mx-auto mb-5">IN THIS SEASON OF MARRIAGE WHY HUSTLE FOR BAQUET HALLS ,WHEN YOU CAN SEE ALL THE HALLS IN THE TOWN AT A GO</p>
+
+  <!-- Grid row -->
+  <div *ngFor="let hall of halllist;"class="row pb-5">
+
+    <!-- Grid column -->
+    <div class="col-lg-5 col-xl-5 pb-3">
+
+      <!-- Featured image -->
+      <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+        <img src="{{hall.image}}"class="img-fluid"  alt="Sample image">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-lg-7 col-xl-7">
+
+      <!-- Category -->
+      <a href="#!" class="green-text"><h6 class="font-weight-bold mb-3"><i class="fa fa-cutlery pr-2"></i>Food</h6></a>
+      <!-- Post title -->
+      <h3 class="font-weight-bold mb-3"><strong>{{hall.name}}</strong></h3>
+      <!-- Excerpt -->
+      <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.</p>
+      <!-- Post data -->
+      <p>by <a><strong>{{hall.address}}</strong></a>, {{hall.advance}}</p>
+      <!-- Read more button -->
+      <a class="btn btn-success btn-md"data-toggle="modal" data-target="#Explore" mdbWavesEffect  (click)="Explore.show()" (click)="ExploreHall(hall.name)">Explore</a>
+      <div [ngSwitch]="loginStatus">
+          <a *ngSwitchCase="'false'" class="btn btn-success btn-md" data-toggle="modal" data-target="#basicExample" (click)="frame.show()"
+    mdbWavesEffect>Book</a>
+    <a *ngSwitchCase="'true'" class="btn btn-success btn-md" (click)="LoggedInBook()">Book</a>
+    <a *ngSwitchCase="'undefined'" class="btn btn-success btn-md" data-toggle="modal" data-target="#basicExample" (click)="frame.show()"
+    mdbWavesEffect>Book</a>
+      </div>
+    <!--  <div *ngIf="loginStatus==true;else showSignUp">
+       <a class="btn btn-success btn-md" (click)="LoggedInBook()">Book</a>
+      </div>
+      <ng-template #showSignUp>
+       <a class="btn btn-success btn-md" data-toggle="modal" data-target="#basicExample" (click)="frame.show()"
+    mdbWavesEffect>Book</a>
+      </ng-template>-->
+    </div>
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+  <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+          <strong>Sign in</strong>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <div class="md-form mb-5">
+            <form [formGroup]="LoginForm" (ngSubmit)="onSubmit($event)">
+                <div class="form-group">
+                    <input type="text" #usernam class="form-control" formControlName="username">
+                    <div *ngIf="LoginForm.controls['username'].hasError('required')" class="alert alert-danger">
+                        Please enter your Email
+                    </div>
+                    <div *ngIf="LoginForm.controls['username'].hasError('maxlength')" class="alert alert-danger">
+                        Maximum Characters allowed is 10
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" #passwor class="form-control" formControlName="Password">
+                    <div *ngIf="LoginForm.controls['Password'].hasError('required')" class="alert alert-danger">
+                        Please enter a Password
+                    </div>
+                    <p class="font-small blue-text d-flex justify-content-end">Forgot
+                        <a href="#" class="blue-text ml-1"> Password?</a>
+                      </p>
+                </div>
+
+                  <div class="text-center mb-3">
+                <button type="submit" [disabled]="!LoginForm.valid" class="btn blue-gradient btn-block btn-rounded z-depth-1a waves-light" mdbWavesEffect (click)="onSubmit(usernam.value,passwor.value)"(click)="frame.hide()">Login</button></div>
+            </form>
+        </div>
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in with:</p>
+
+        <div class="row my-3 d-flex justify-content-center">
+          <!--Facebook-->
+          <a class="fb-ic">
+            <i class="fa fa-facebook  blue-text mr-md-4 mr-3 fa-1x"> </i>
+          </a>
+          <!--Google +-->
+          <a class="gplus-ic">
+            <i class="fa fa-google-plus red-text mr-md-4 mr-3 fa-1x"> </i>
+          </a>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Not a member?
+          <a data-toggle="modal" data-target="#basicExample" (click)="frame1.show()"(click)="frame.hide()"> <strong>Sign Up</strong></a>
+        </p>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--SignUp Modal Sart-->
+<div mdbModal #frame1="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+          <strong>Sign Up</strong>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame1.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <div class="md-form mb-5">
+            <form [formGroup]="RegisterForm" (ngSubmit)="onRegister()">
+                <div class="form-group">
+                    
+                    <input type="text" #username class="form-control" formControlName="username">
+                    <div *ngIf="RegisterForm.controls['username'].hasError('required')" class="alert alert-danger">
+                        Please enter your Username
+                    </div>
+                    <div *ngIf="RegisterForm.controls['username'].hasError('maxlength')" class="alert alert-danger">
+                        Maximum Characters allowed is 10
+                    </div>
+                </div>
+				<div class="form-group">
+                    
+                    <input type="text" #fullname class="form-control" formControlName="fullname">
+                    <div *ngIf="RegisterForm.controls['fullname'].hasError('required')" class="alert alert-danger">
+                        Please enter your FullName
+                    </div>
+                    <div *ngIf="RegisterForm.controls['fullname'].hasError('maxlength')" class="alert alert-danger">
+                        Maximum Characters allowed is 10
+                    </div>
+                </div>
+				 <div class="form-group">
+                   
+                    <input type="password" #password class="form-control" formControlName="Password">
+                    <div *ngIf="RegisterForm.controls['Password'].hasError('required')" class="alert alert-danger">
+                        Please enter a Password
+                    </div>
+         
+                </div>
+				<div class="form-group">
+                    
+                    <input type="text" #lastname class="form-control" formControlName="lastname">
+                    <div *ngIf="RegisterForm.controls['lastname'].hasError('required')" class="alert alert-danger">
+                        Please enter your Lastname
+                    </div>
+                    <div *ngIf="RegisterForm.controls['lastname'].hasError('maxlength')" class="alert alert-danger">
+                        Maximum Characters allowed is 10
+                    </div>
+                </div>
+				<div class="form-group">
+                    
+                    <input type="text" #address class="form-control" formControlName="address">
+                    <div *ngIf="RegisterForm.controls['address'].hasError('required')" class="alert alert-danger">
+                        Please enter your Address
+                    </div>
+                   
+                </div>
+				<div class="form-group">
+                    
+                    <input type="text" #email class="form-control" formControlName="email">
+                    <div *ngIf="RegisterForm.controls['email'].hasError('required')" class="alert alert-danger">
+                        Please enter your Email
+                    </div>
+                    <div *ngIf="RegisterForm.controls['email'].hasError('email')" class="alert alert-danger">
+                        Please Enter a valid Email
+                    </div>
+                </div>
+              
+                  <div class="text-center mb-3">
+                <button type="submit" [disabled]="!RegisterForm.valid" class="btn blue-gradient btn-block btn-rounded z-depth-1a waves-light" mdbWavesEffect (click)="frame1.hide()">SUBMIT</button></div>
+            </form>
+        </div>    
+      </div>
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Already a member?
+          <a data-toggle="modal" data-target="#basicExample" (click)="frame.show()"(click)="frame1.hide()"> Sign In</a>
+        </p>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--SignUP Modal Ends-->
+<!--Explore Modal-->
+<div mdbModal #Explore="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row"*ngIf="selected">
+          <div class="col-lg-5">
+            <!--Carousel Wrapper-->
+            <mdb-carousel [isControls]="true" [animation]="'slide'">
+              <!--First slide-->
+              <mdb-slide>
+                <img class="d-block w-300" src="{{selected.image}}" alt="First slide">
+              </mdb-slide>
+              <!--/First slide-->
+              <!--Second slide-->
+              <mdb-slide>
+                <img class="d-block w-300" src="{{selected.image}}" alt="Second slide">
+              </mdb-slide>
+              <!--/Second slide-->
+              <!--Third slide-->
+              <mdb-slide>
+                <img class="d-block w-300" src="{{selected.image}}">
+              </mdb-slide>
+              <!--/Third slide-->
+            </mdb-carousel>
+            <!--/.Carousel Wrapper-->
+          </div>
+          <div class="col-lg-7">
+            <h2 class="h2-responsive product-name">
+              <strong>HALL DETAILS</strong>
+            </h2>
+           <!-- <h4 class="h4-responsive">
+              <span class="green-text">
+                <strong>$49</strong>
+              </span>
+              <span class="grey-text">
+                <small>
+                  <s>$89</s>
+                </small>
+              </span>
+            </h4>-->
+
+            <!--Accordion wrapper-->
+            <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+              <mdb-item [collapsed]="true">
+                <div class="alternative_cls"> <!-- alternative_cls(n)=1, odd so apply = (grey) -->
+                 <strong> Name</strong> : {{selected.name}}
+              </div>
+              <div class="alternative_cls"> <!-- alternative_cls(n)=1, odd so apply = (grey) -->
+               <strong> Description</strong> : {{selected.description}}
+            </div>
+            <div class="alternative_cls"> <!-- alternative_cls(n)=1, odd so apply = (grey) -->
+              <strong>Address</strong>: {{selected.address}}
+          </div>
+          <div class="alternative_cls"> <!-- alternative_cls(n)=1, odd so apply = (grey) -->
+            <strong>Advance </strong>: {{selected.advance}}
+        </div>
+              </mdb-item>
+            </mdb-squeezebox>
+            <!--/.Accordion wrapper-->
+
+            <!-- Add to Cart -->
+      
+            <!-- /.Add to Cart -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Explore Modal Ends-->
+</section>
+

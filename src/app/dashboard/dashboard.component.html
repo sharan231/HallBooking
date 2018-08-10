@@ -1,0 +1,353 @@
+<header class="h-100">
+    <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar intro-fixed-nav">
+      <mdb-navbar-brand>
+        <a class="logo navbar-brand" *ngIf="isLoggedIn; else showwelcome"href="#">
+          <strong>Hello  {{button}}</strong>
+        </a>
+        <ng-template #showwelcome>
+            <a class="logo navbar-brand" id="welcome"href="#">
+                <strong>Welcome </strong>
+              </a>
+ </ng-template>
+      </mdb-navbar-brand>
+      <links>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active waves-light" mdbWavesEffect>
+            <a class="nav-link" routerLink="/dashboard/home">HOME {{pass}}
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item waves-light" *ngIf="isLoggedIn" mdbWavesEffect>
+            <a class="nav-link" routerLink="/dashboard/profile">My Profile</a>
+          </li>
+          <li class="nav-item waves-light" *ngIf="isLoggedIn"mdbWavesEffect>
+            <a class="nav-link">History</a>
+          </li>
+          <li class="nav-item waves-light" mdbWavesEffect>
+            <a class="nav-link">About us</a>
+          </li>
+          <div *ngIf="isLoggedIn; else showLoginRequestMessage">
+            <a class="nav-link" id="logout" (click)="logout()">Logout</a>
+         </div>
+         <ng-template #showLoginRequestMessage>
+            <a  class="nav-link" data-toggle="modal" data-target="#basicExample" (click)="frame.show()"
+            mdbWavesEffect><strong>SignIn</strong></a>
+ </ng-template>
+        </ul>
+      </links>
+    </mdb-navbar>
+    <!-- Main -->
+    <div class="view intro-2" >
+      <div class="full-bg-img">
+        <div class="mask rgba-purple-light flex-center">
+          <div class="container text-center white-text wow fadeInUp">
+            <div class="col-md-14">
+                <router-outlet></router-outlet>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.Main -->
+</header>
+  <!--Main Navigation-->
+
+  <!--Main Layout-->
+
+  <!--Main Layout-->
+<!--Main Layout-->
+
+
+
+
+
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+          <strong>Sign in</strong>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <div class="md-form mb-5">
+            <form [formGroup]="LoginForm" (ngSubmit)="onSubmit($event)">
+                <div class="form-group">
+                    <input type="text" #usernam class="form-control" formControlName="username">
+                    <div *ngIf="LoginForm.controls['username'].hasError('required')" class="alert alert-danger">
+                        Please enter your Email
+                    </div>
+                    <div *ngIf="LoginForm.controls['username'].hasError('maxlength')" class="alert alert-danger">
+                        Maximum Characters allowed is 10
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" #passwor class="form-control" formControlName="Password">
+                    <div *ngIf="LoginForm.controls['Password'].hasError('required')" class="alert alert-danger">
+                        Please enter a Password
+                    </div>
+                    <p class="font-small blue-text d-flex justify-content-end">Forgot
+                        <a href="#" class="blue-text ml-1"> Password?</a>
+                      </p>
+                </div>
+
+                  <div class="text-center mb-3">
+                <button type="submit" [disabled]="!LoginForm.valid" class="btn blue-gradient btn-block btn-rounded z-depth-1a waves-light" mdbWavesEffect (click)="onSubmit(usernam.value,passwor.value)"(click)="frame.hide()">Login</button></div>
+            </form>
+        </div>
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in with:</p>
+
+        <div class="row my-3 d-flex justify-content-center">
+          <!--Facebook-->
+          <a class="fb-ic">
+            <i class="fa fa-facebook  blue-text mr-md-4 mr-3 fa-1x"> </i>
+          </a>
+          <!--Google +-->
+          <a class="gplus-ic">
+            <i class="fa fa-google-plus red-text mr-md-4 mr-3 fa-1x"> </i>
+          </a>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Not a member?
+          <a data-toggle="modal" data-target="#basicExample" (click)="frame1.show()"(click)="frame.hide()"> <strong>Sign Up</strong></a>
+        </p>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--SignUp Modal Sart-->
+<div mdbModal #frame1="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+          <strong>Sign Up</strong>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame1.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <div class="md-form mb-5">
+            <form [formGroup]="RegisterForm" (ngSubmit)="onRegister()">
+                <div class="form-group">
+                    
+                    <input type="text" #username class="form-control" formControlName="username">
+                    <div *ngIf="RegisterForm.controls['username'].hasError('required')" class="alert alert-danger">
+                        Please enter your Username
+                    </div>
+                    <div *ngIf="RegisterForm.controls['username'].hasError('maxlength')" class="alert alert-danger">
+                        Maximum Characters allowed is 10
+                    </div>
+                </div>
+				<div class="form-group">
+                    
+                    <input type="text" #fullname class="form-control" formControlName="fullname">
+                    <div *ngIf="RegisterForm.controls['fullname'].hasError('required')" class="alert alert-danger">
+                        Please enter your FullName
+                    </div>
+                    <div *ngIf="RegisterForm.controls['fullname'].hasError('maxlength')" class="alert alert-danger">
+                        Maximum Characters allowed is 10
+                    </div>
+                </div>
+				 <div class="form-group">
+                   
+                    <input type="password" #password class="form-control" formControlName="Password">
+                    <div *ngIf="RegisterForm.controls['Password'].hasError('required')" class="alert alert-danger">
+                        Please enter a Password
+                    </div>
+         
+                </div>
+				<div class="form-group">
+                    
+                    <input type="text" #lastname class="form-control" formControlName="lastname">
+                    <div *ngIf="RegisterForm.controls['lastname'].hasError('required')" class="alert alert-danger">
+                        Please enter your Lastname
+                    </div>
+                    <div *ngIf="RegisterForm.controls['lastname'].hasError('maxlength')" class="alert alert-danger">
+                        Maximum Characters allowed is 10
+                    </div>
+                </div>
+				<div class="form-group">
+                    
+                    <input type="text" #address class="form-control" formControlName="address">
+                    <div *ngIf="RegisterForm.controls['address'].hasError('required')" class="alert alert-danger">
+                        Please enter your Address
+                    </div>
+                   
+                </div>
+				<div class="form-group">
+                    
+                    <input type="text" #email class="form-control" formControlName="email">
+                    <div *ngIf="RegisterForm.controls['email'].hasError('required')" class="alert alert-danger">
+                        Please enter your Email
+                    </div>
+                    <div *ngIf="RegisterForm.controls['email'].hasError('email')" class="alert alert-danger">
+                        Please Enter a valid Email
+                    </div>
+                </div>
+              
+                  <div class="text-center mb-3">
+                <button type="submit" [disabled]="!RegisterForm.valid" class="btn blue-gradient btn-block btn-rounded z-depth-1a waves-light" mdbWavesEffect (click)="frame1.hide()">SUBMIT</button></div>
+            </form>
+        </div>    
+      </div>
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Already a member?
+          <a data-toggle="modal" data-target="#basicExample" (click)="frame.show()"(click)="frame1.hide()"> Sign In</a>
+        </p>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--SignUP Modal Ends-->
+<!--Carousel Wrapper-->
+<mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'" [animation]="'slide'">
+  <!--First slide-->
+  <mdb-carousel-item>
+      <div class="col-sm-4" id="box">
+          <div class="card">
+              <img  src="assets/Temple-tree.jpeg" class="img-fluid" alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-4 clearfix d-none d-md-block"id="box">
+          <div class="card">
+              <img  src="assets/waterbody-lawn-wedding.jpg" class="img-fluid"alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-4 clearfix d-none d-md-block"id="box">
+          <div class="card">
+              <img  src="assets/Banquet-Halls-in-Bangalore-4.jpg" class="img-fluid"alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+  </mdb-carousel-item>
+  <!--/First slide-->
+  <!--Second slide-->
+  <mdb-carousel-item >
+      <div class="col-md-4"id="box">
+          <div class="card">
+              <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(60).jpg" alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4 clearfix d-none d-md-block"id="box">
+          <div class="card">
+              <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(47).jpg" alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4 clearfix d-none d-md-block"id="box">
+          <div class="card">
+              <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+  </mdb-carousel-item>
+  <!--/Second slide-->
+  <!--Third slide-->
+  <mdb-carousel-item>
+      <div class="col-md-4"id="box">
+          <div class="card">
+              <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4 clearfix d-none d-md-block"id="box">
+          <div class="card">
+              <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4 clearfix d-none d-md-block"id="box">
+          <div class="card">
+              <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(51).jpg" alt="Card image cap">
+              <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary waves-light" mdbWavesEffect>Button</a>
+              </div>
+          </div>
+      </div>
+  </mdb-carousel-item>
+  <!--/Third slide-->
+</mdb-carousel>
+<!--/.Carousel Wrapper-->
+<!--Carousel Wrapper-->
+<mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
+  <!--First slide-->
+  <mdb-carousel-item>
+      <video class="video-fluid" autoplay loop>
+          <source src="https://mdbootstrap.com/img/video/Tropical.mp4" type="video/mp4" />
+      </video>
+  </mdb-carousel-item>
+  <!--/First slide-->
+  <!--Second slide-->
+  <mdb-carousel-item>
+      <video class="video-fluid" autoplay loop>
+          <source src="https://mdbootstrap.com/img/video/forest.mp4" type="video/mp4" />
+      </video>
+  </mdb-carousel-item>
+  <!--/Second slide-->
+  <!--Third slide-->
+  <mdb-carousel-item>
+      <video class="video-fluid" autoplay loop>
+          <source src="https://mdbootstrap.com/img/video/Tropical.mp4" type="video/mp4" />
+      </video>
+  </mdb-carousel-item>
+  <!--/Third slide-->
+</mdb-carousel>
+<!--Carousel Wrapper-->
+<!--Main Layout-->
