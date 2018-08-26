@@ -10,6 +10,8 @@ import {BsDaterangepickerConfig} from 'ngx-bootstrap/datepicker';
 })
 export class HomeComponent implements OnInit {
   daterangepickerconfig: Partial<BsDaterangepickerConfig>;
+  From : string;
+  To : string;
   DateForm = new FormGroup({
   FromDate: new FormControl('',Validators.required),
   PinCode: new FormControl('',Validators.required)
@@ -29,9 +31,13 @@ export class HomeComponent implements OnInit {
 
 var date = e.target.elements[0].value;
 var pincode=e.target.elements[1].value;
-console.log(date);
-var LoggedInStatus= this.route.snapshot.params['loggedIn'];
-this.router.navigate(['halllist',{foo:date,pin:pincode,loginStatus:LoggedInStatus}]);
+let stringToSplit = date;
+let x = stringToSplit.split("-");
+this.From =x[0];
+this.To=x[1];
+console.log(this.To);
+//var LoggedInStatus= this.route.snapshot.params['loggedIn'];
+this.router.navigate(['halllist',{foo:this.From,foo2:this.To,pin:pincode}]);
 
   }
 }

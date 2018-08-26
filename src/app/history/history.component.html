@@ -1,0 +1,21 @@
+<table datatable class = "hover hover table table-striped table-bordered" id="maintable">
+  <thead>
+    <tr>
+      <th>Booking ID</th>
+      <th>Hall Name</th>
+      <th>From Date</th>
+      <th>To Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products;">
+      <td class="grey"><strong>{{ product.BookingID }}</strong></td>
+      <td class="grey">{{ product.HallName }}</td>
+      <td class="grey">{{ product.FromDate }}</td>
+      <td class="grey">{{ product.ToDate }}</td>
+    </tr>
+    <tr *ngIf="products?.length == 0">
+      <td colspan="4" class="no-data-available grey">No Booking History!</td>
+    </tr>
+  </tbody>
+</table>

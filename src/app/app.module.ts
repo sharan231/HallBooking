@@ -14,13 +14,24 @@ import { ExploreHallComponent } from './explore-hall/explore-hall.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ProfileComponent } from './profile/profile.component';
 import {EditprofileCanDeactiveGuardService} from './Edit-Profile-CanDeactiveGuard.service';
+import {UserserviceService} from './userservice.service';
+import {userGuardService} from './userGuardService';
+import { HistoryComponent } from './history/history.component';
+import { AgmCoreModule } from '@agm/core';
+import { TestComponent } from './test/test.component';
+import { DataTablesModule } from 'angular-datatables';
+import { MydetailsComponent } from './mydetails/mydetails.component';
+import {ConfirmEqualValidatorDirective} from './shared/confirm-equal-validator.directive';
+//import {hallListService} from './hallListService.service';
 
 const appRoutes: Routes = [
   //{ path:'login', component: LoginformComponent},
   { path:'dashboard', component: DashboardComponent, children: [
     { path:'home', component: HomeComponent},
-    { path:'profile', component: ProfileComponent,canDeactivate: [EditprofileCanDeactiveGuardService]}
-   // { path:'history', component: HistoryComponent}
+    { path:'profile', component: ProfileComponent,canActivate: [userGuardService], children :[
+      {path: 'mydetails', component:MydetailsComponent}
+    ]},
+    { path:'history', component: HistoryComponent,canActivate: [userGuardService]}
   ]},
   { path:'halllist', component: HalllistComponent},
   { path:'summary', component: SummaryComponent},
@@ -36,11 +47,20 @@ const appRoutes: Routes = [
     FooterComponent,
     ExploreHallComponent,
     SummaryComponent,
-    ProfileComponent
+    ProfileComponent,
+    HistoryComponent,
+    TestComponent,
+    MydetailsComponent,
+    ConfirmEqualValidatorDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    DataTablesModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCxuFLqm61MCHw7EZbvnzksSeVetCWo_JI",
+      libraries: ["places"]
+    }),
     ReactiveFormsModule,
     HttpClientModule,
     BsDatepickerModule.forRoot(),
@@ -48,7 +68,8 @@ const appRoutes: Routes = [
     MDBBootstrapModule.forRoot()
   ],
   schemas:[ NO_ERRORS_SCHEMA ],
-  providers: [EditprofileCanDeactiveGuardService],
+  providers: [EditprofileCanDeactiveGuardService,UserserviceService,userGuardService],
   bootstrap: [AppComponent]
 })
+//canDeactivate: [EditprofileCanDeactiveGuardService],
 export class AppModule { }
