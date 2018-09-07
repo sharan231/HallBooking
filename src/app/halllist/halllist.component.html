@@ -2,7 +2,7 @@
 <!--Main Navigation-->
 <header>
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark pink scrolling-navbar">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark green scrolling-navbar">
         <a class="navbar-brand" href="#"><strong>HALL LIST</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -65,7 +65,8 @@
       <div [ngSwitch]="loginStatus">
           <a *ngSwitchCase="'false'" class="btn btn-success btn-md" data-toggle="modal" data-target="#basicExample" (click)="frame.show()"
     mdbWavesEffect>Book</a>
-    <a *ngSwitchCase="'true'" class="btn btn-success btn-md" (click)="LoggedInBook()">Book</a>
+    <a *ngSwitchCase="'true'" class="btn btn-success btn-md"data-toggle="modal" data-target="#basicExample" (click)="Occassion.show()"(click)="LoggedInBook(hall.name)"
+    mdbWavesEffect>Book</a>
     <a *ngSwitchCase="'undefined'" class="btn btn-success btn-md" data-toggle="modal" data-target="#basicExample" (click)="frame.show()"
     mdbWavesEffect>Book</a>
       </div>
@@ -308,6 +309,48 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div mdbModal #Occassion="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+          <strong>Select Occassion</strong>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="Occassion.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <div class="md-form mb-5">
+            <form [formGroup]="OccassionForm" (ngSubmit)="onOccassion($event)">
+              <div class="form-group">
+                    
+                <select id="occassion" type="text" #occassion class="form-control" formControlName="occassion">
+                  <option value="1">Wedding</option>
+                  <option value="2">Birthday</option>
+                  <option value="3">Conference</option>
+                </select>
+               
+            </div>
+              <div> <button type="submit" [disabled]="!OccassionForm.valid" class="btn blue-gradient btn-block btn-rounded z-depth-1a waves-light" mdbWavesEffect (click)="Occassion.hide()">Submit</button></div>
+            </form>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">© 2018 Copyright:
+    <a href=""> @SMTechnologies</a>
+        </p>
+      </div>
+    </div>
+    <!--/.Content-->
   </div>
 </div>
 <!--Explore Modal Ends-->
