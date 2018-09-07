@@ -1,0 +1,79 @@
+<div class="container page-break"style="margin-top:40px;background:rgba(18,70,128)">
+  <h2>My Details</h2>
+      <div class="col-sm-2">
+          <label class ="pull-left">FirstName : </label>
+          <div class="col-sm-4">Sharan</div>
+      </div>
+      <div class="col-sm-2">
+          <label class ="pull-left">LastName :</label>
+          <div class="col-sm-4">Reddy</div>
+      </div>
+      <div class="col-sm-2">
+        <label class ="pull-left">PhoneNumber:</label>
+        <div class="col-sm-4">9008420384</div>
+    </div>
+    <div class="col-sm-2">
+      <label class ="pull-left">Email :</label>
+      <div class="col-sm-4">sharan2311@gmail.com</div>
+  </div>
+  <div class="col-sm-2">
+    <label class ="pull-left">Password :</label>
+    <div class="col-sm-4">******</div>
+    <button type="submit"  class="btn-btn-primary pull-right" data-toggle="modal" data-target="#basicExample" (click)="updatepassword.show()"
+    mdbWavesEffect>UpdatePassword</button> 
+</div> 
+ <!-- <button type="submit"  class="btn-btn-primary">SIGNUP</button>-->
+</div>
+<div mdbModal #updatepassword="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+          <strong>Update Password</strong>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="updatepassword.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <div class="md-form mb-5">
+          <form [formGroup]="UpdatepasswordForm">
+            <div class="form-group">
+                <input type="password" #password class="form-control" formControlName="password">
+                <div *ngIf="UpdatepasswordForm.controls['password'].hasError('required')" class="alert alert-danger">
+                    Please enter new Password
+                </div>
+                <div *ngIf="UpdatepasswordForm.controls['password'].hasError('maxlength')" class="alert alert-danger">
+                    Maximum Characters allowed is 10
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" #confirmpasswor appConfirmEqualValidator="password" class="form-control" formControlName="confirmpassword">
+                <div *ngIf="UpdatepasswordForm.controls['confirmpassword'].hasError('required')" class="alert alert-danger">
+                    Please reenter a Password
+                </div>
+                <div *ngIf="UpdatepasswordForm.controls['confirmpassword'].hasError('notEqual') && !UpdatepasswordForm.controls['confirmpassword'].hasError('required')" class="alert alert-danger">
+                    Password and confirm password does not match
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" [disabled]="!UpdatepasswordForm.valid" id="UpdatepasswordFormbutton"class="btn-btn-primary"(click)="onUpdate(confirmpasswor.value)"(click)="updatepassword.hide()">Update</button>
+        </div>
+</form>
+        </div>
+        
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">© 2018 Copyright:
+    <a href=""> @SMTechnologies</a>
+        </p>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>

@@ -11,7 +11,8 @@ import {user} from '../Interfaces/user';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  u1 : user;
+  u1 :user;
+  resuser :user;
   Register: user;
   button: string;
   pass: string;
@@ -36,6 +37,9 @@ console.log(this.RegisterForm.value);
     Password:new FormControl('Password',Validators.required)
   });
   onSubmit(user,pass){
+    //this.u1.email = user;
+    //this.u1.password=pass;
+   // this.getuser(this.u1);
     //var username = e.target.elements[0].value;
     //var password = e.target.elements[1].value;
     console.log(user);
@@ -44,8 +48,10 @@ console.log(this.RegisterForm.value);
       //this.closewindow();
       console.log(user);
       this.button= user;
+      this.userservice.setisLoggedin();
+      console.log(this.userservice.getisLoggedin());
       this.isLoggedIn=true;
-        this.router.navigate(['dashboard/home',{loggedIn:this.isLoggedIn}]);
+        this.router.navigate(['dashboard/home']);
     }
   }
   logout(){
@@ -53,16 +59,14 @@ console.log(this.RegisterForm.value);
     this.router.navigate(['dashboard/home',{loggedIn:this.isLoggedIn}]);
   }
   ngOnInit() {
-    this.getuser();   
+    //this.getuser();   
   }
-  public getuser(){
-     this.userservice.getuserbyid().subscribe(
-      (data: user)=>{
-        this.u1 = data;
-        console.log(this.u1);
-        console.log(this.u1[0].password);
+  public getuser(u1){
+     this.userservice.getuserbyid(u1).subscribe(
+        res => this.resuser = res,
+        err =>console.log(err)
         //console.log(this.u1.password);
-      });
+      )
       
   }
 }

@@ -1,9 +1,36 @@
 <!-- Section: Blog v.1 -->
+<!--Main Navigation-->
+<header>
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark pink scrolling-navbar">
+        <a class="navbar-brand" href="#"><strong>HALL LIST</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">From: {{From}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">To: {{To}}</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav nav-flex-icons">
+                <li *ngIf="isLoggedIn"class="nav-item">
+                    <a class="nav-link" (click)="logout()">LogOut </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</header>
+<!--Main Navigation-->
 <section  class="my-3">
   <!-- Section heading -->
   <h2 class="h1-responsive font-weight-bold text-center my-3">HALL LIST</h2>
   <!-- Section description -->
-  <p class="text-center w-responsive mx-auto mb-5">IN THIS SEASON OF MARRIAGE WHY HUSTLE FOR BAQUET HALLS ,WHEN YOU CAN SEE ALL THE HALLS IN THE TOWN AT A GO</p>
+  <p class="text-center w-responsive mx-auto mb-5"><strong>IN THIS SEASON OF MARRIAGE WHY HUSTLE FOR BAQUET HALLS ,WHEN YOU CAN SEE ALL THE HALLS IN THE TOWN AT A GO</strong></p>
 
   <!-- Grid row -->
   <div *ngFor="let hall of halllist;"class="row pb-5">

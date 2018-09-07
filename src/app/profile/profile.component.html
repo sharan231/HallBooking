@@ -1,63 +1,51 @@
-<div class="container" style="background:rgba(18,70,128)" >
-<form [formGroup]="ProfileForm" #profileForm="ngForm" (ngSubmit)="onRegister()">
-    <div class="form-group">
-        <label>Username</label>
-        <input type="text" #username class="form-control" formControlName="username">
-        <div *ngIf="RegisterForm.controls['username'].hasError('required')" class="alert alert-danger">
-            Please enter your Username
-        </div>
-        <div *ngIf="RegisterForm.controls['username'].hasError('maxlength')" class="alert alert-danger">
-            Maximum Characters allowed is 10
-        </div>
-    </div>
-<div class="form-group">
-        
-        <input type="text" #fullname class="form-control" formControlName="fullname">
-        <div *ngIf="RegisterForm.controls['fullname'].hasError('required')" class="alert alert-danger">
-            Please enter your FullName
-        </div>
-        <div *ngIf="RegisterForm.controls['fullname'].hasError('maxlength')" class="alert alert-danger">
-            Maximum Characters allowed is 10
-        </div>
-    </div>
-<div class="form-group">
-       
-        <input type="password" #password class="form-control" formControlName="Password">
-        <div *ngIf="RegisterForm.controls['Password'].hasError('required')" class="alert alert-danger">
-            Please enter a Password
-        </div>
+<!--
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+-->
 
-    </div>
-<div class="form-group">
-        
-        <input type="text" #lastname class="form-control" formControlName="lastname">
-        <div *ngIf="RegisterForm.controls['lastname'].hasError('required')" class="alert alert-danger">
-            Please enter your Lastname
-        </div>
-        <div *ngIf="RegisterForm.controls['lastname'].hasError('maxlength')" class="alert alert-danger">
-            Maximum Characters allowed is 10
-        </div>
-    </div>
-<div class="form-group">
-        
-        <input type="text" #address class="form-control" formControlName="address">
-        <div *ngIf="RegisterForm.controls['address'].hasError('required')" class="alert alert-danger">
-            Please enter your Address
-        </div>
-       
-    </div>
-<div class="form-group">
-        
-        <input type="text" #email class="form-control" formControlName="email">
-        <div *ngIf="RegisterForm.controls['email'].hasError('required')" class="alert alert-danger">
-            Please enter your Email
-        </div>
-        <div *ngIf="RegisterForm.controls['email'].hasError('email')" class="alert alert-danger">
-            Please Enter a valid Email
-        </div>
-    </div>
-  
-      <div class="text-center mb-3">
-    <button type="submit" [disabled]="!RegisterForm.valid" class="btn blue-gradient btn-block btn-rounded z-depth-1a waves-light" mdbWavesEffect (click)="frame1.hide()">SUBMIT</button></div>
-</form>
+<div class="container"style="margin-top:100px;background:rgba(18,70,128)">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar"style="margin-top:30px">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src="assets/Temple-tree.jpeg" class="img-responsive" alt="">
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						USERNAME
+					</div>
+					<div class="profile-usertitle-job">
+						User 
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					<button type="button" class="btn btn-success btn-sm">Change Picture</button>
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="toolbar">
+					<div class="vertical-menu">
+                        <a routerLink="/dashboard/profile/mydetails" class="active">Profile</a>
+                     <!--   <a href="#">Account Settings</a>
+                        <a href="#">Help </a>-->
+                      </div>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content" style="background:rgba(18,70,128)">
+			   <router-outlet></router-outlet>
+            </div>
+		</div>
+	</div>
 </div>
+
+<br>
+<br>

@@ -15,10 +15,12 @@ import {hall} from '../Interfaces/hall';
 export class HalllistComponent implements OnInit {
 
 halllist : any;
+isLoggedIn: boolean=false;
 selected:any;
-date:any;
+From:any;
+To:any;
 pin:any;
-loginStatus:String;
+loginStatus: string;
 hallname: String;
 //loginStatus=this.route.snapshot.params['loginStatus'];
 Register: user;
@@ -50,7 +52,7 @@ Register: user;
 console.log(this.RegisterForm.value);
     this.Register =this.RegisterForm.value;
     this.userservice.postuser(this.Register);
-    this.loginStatus="true";
+    this.userservice.setisLoggedin;
     this.router.navigate(['halllist',{loginStatus:this.loginStatus}]);
   }
   LoginForm = new FormGroup({
@@ -66,13 +68,21 @@ console.log(this.RegisterForm.value);
       //this.closewindow();
       console.log(user);
       //this.button= user;
-      this.loginStatus="true";
-      this.router.navigate(['halllist',{loginStatus:this.loginStatus}]);
+      this.userservice.setisLoggedin();
+      this.isLoggedIn=true;
+      this.loginStatus = this.userservice.getisLoggedin();
+      this.router.navigate(['halllist']);
       console.log(this.loginStatus);
     }
   }
   LoggedInBook(){
     this.router.navigate(['summary']);
+  }
+  
+  logout(){
+    this.isLoggedIn=false;
+    this.loginStatus = "false";
+    //this.router.navigate(['dashboard/home']);
   }
   ExploreHall(name){
     this.hallname=name;
@@ -85,12 +95,15 @@ console.log(this.RegisterForm.value);
     console.log(this.selected.name);
 }
   ngOnInit() {
-    this.date= this.route.snapshot.params['foo'];
+    this.From= this.route.snapshot.params['foo'];
+    this.To= this.route.snapshot.params['foo2'];
     this.pin= this.route.snapshot.params['pin'];
-    this.loginStatus=this.route.snapshot.params['loginStatus'];
+    this.loginStatus=this.userservice.getisLoggedin();
     console.log(this.loginStatus);
     this.gethalls();
-    
+    if(this.userservice.getisLoggedin()=='true'){
+      this.isLoggedIn=true;
+    }
   }
  
   gethalls(){

@@ -8,11 +8,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserserviceService {
+  public isLoggedin : string;
   //API_URL  =  'http://localhost:8080';
-  constructor(private httpClient:  HttpClient) { }
-
-  getuserbyid(){
-    return  this.httpClient.get(`http://localhost:8080/HallBookingManagement/v1/test`);
+  find_userURL = 'http://localhost:8080/HallBookingManagement/v1/test';
+  constructor(private httpClient:  HttpClient) { this.isLoggedin = "false";}
+setisLoggedin(){
+  this.isLoggedin= "true";
+}
+getisLoggedin(){
+  return this.isLoggedin;
+}
+  getuserbyid(user){
+    return  this.httpClient.post<user>(this.find_userURL,user);
   }
   postuser(user){
     return  this.httpClient.post(``,user);
