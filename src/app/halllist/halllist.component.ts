@@ -24,6 +24,8 @@ loginStatus: string;
 hallname: String;
 //loginStatus=this.route.snapshot.params['loginStatus'];
 Register: user;
+hallName: string;
+hallAddress: string; 
   constructor(private router: Router,private route: ActivatedRoute,private userservice:UserserviceService) { }
   //loginStatus=this.comp.isLoggedIn
   public itemsList: Object[] = [
@@ -75,10 +77,21 @@ console.log(this.RegisterForm.value);
       console.log(this.loginStatus);
     }
   }
-  LoggedInBook(){
+  LoggedInBook(n){
+    //console.log(n);
+    this.hallName = n;
+    console.log(this.hallName);
+    //this.router.navigate(['summary']);
+  }
+  OccassionForm = new FormGroup({
+    occassion: new FormControl('',[Validators.required]),
+    //Password:new FormControl('Password',Validators.required)
+  });
+  onOccassion(e){
+    var occassion = e.target.elements[0].value;
+    console.log(occassion);
     this.router.navigate(['summary']);
   }
-  
   logout(){
     this.isLoggedIn=false;
     this.loginStatus = "false";
